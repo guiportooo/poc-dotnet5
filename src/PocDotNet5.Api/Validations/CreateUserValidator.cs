@@ -16,7 +16,7 @@ namespace PocDotNet5.Api.Validations
             
             RuleFor(x => x.LastName)
                 .NotEmpty()
-                .WithMessage("Please inform the user's first name.")
+                .WithMessage("Please inform the user's last name.")
                 .MaximumLength(20)
                 .WithMessage("The user's last name cannot have more than 20 characters");
 
@@ -24,7 +24,7 @@ namespace PocDotNet5.Api.Validations
                 .EmailAddress()
                 .WithMessage("Please inform a valid email for the user.");
 
-            RuleFor(x => x.BirthDate)
+            RuleFor(x => x.DateOfBirth)
                 .LessThanOrEqualTo(DateTime.Today.AddYears(-18))
                 .WithMessage("The user must be 18 or older.");
         } 

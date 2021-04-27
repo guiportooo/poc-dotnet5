@@ -16,7 +16,7 @@ namespace PocDotNet5.Api.Controllers
             Ok(new UserCreated(createUser.FirstName,
                 createUser.LastName, 
                 createUser.Email, 
-                createUser.BirthDate, 
+                createUser.DateOfBirth, 
                 true));
     }
 }
