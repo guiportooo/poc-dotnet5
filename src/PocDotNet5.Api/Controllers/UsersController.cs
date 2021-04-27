@@ -7,7 +7,7 @@ namespace PocDotNet5.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserCreated))]
