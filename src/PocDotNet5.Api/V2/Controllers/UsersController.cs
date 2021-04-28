@@ -29,8 +29,7 @@ namespace PocDotNet5.Api.V2.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new UserCreated(user.FirstName,
-                user.LastName,
+            return Ok(new UserCreated(user.FullName,
                 user.Email,
                 user.DateOfBirth));
         }
@@ -44,8 +43,7 @@ namespace PocDotNet5.Api.V2.Controllers
 
             await _userRepository.AddAsync(user);
 
-            return CreatedAtRoute("Get", new {id = user.Id}, new UserCreated(user.FirstName,
-                user.LastName,
+            return CreatedAtRoute("Get", new {id = user.Id}, new UserCreated(user.FullName,
                 user.Email,
                 user.DateOfBirth));
         }

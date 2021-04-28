@@ -10,7 +10,7 @@ using PocDotNet5.Api.EntityFramework;
 namespace PocDotNet5.Api.EntityFramework.Migrations
 {
     [DbContext(typeof(PocDotNet5Context))]
-    [Migration("20210428020244_InitialCreate")]
+    [Migration("20210428182522_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

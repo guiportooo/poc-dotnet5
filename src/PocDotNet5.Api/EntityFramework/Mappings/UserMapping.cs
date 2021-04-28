@@ -25,11 +25,19 @@ namespace PocDotNet5.Api.EntityFramework.Mappings
             builder
                 .Property(x => x.Email)
                 .IsRequired();
+
+            builder
+                .Property(x => x.DateOfBirth)
+                .IsRequired();
             
             builder
                 .Property(x => x.UpdatedAt)
                 .IsRequired()
                 .HasDefaultValueSql("getdate()");
+            
+            builder
+                .Property(x => x.Active)
+                .IsRequired();
         }
     }
 }
