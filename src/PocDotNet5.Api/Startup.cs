@@ -16,7 +16,6 @@ namespace PocDotNet5.Api
     using Models.Responses;
     using Repositories;
     using Swashbuckle.AspNetCore.SwaggerGen;
-    using V1.Models.Responses;
 
     public class Startup
     {
@@ -31,6 +30,7 @@ namespace PocDotNet5.Api
             services
                 .AddDbContext<PocDotNet5Context>(opt =>
                     opt.UseSqlServer(Configuration.GetConnectionString("PocDotNet5")))
+                .AddAutoMapper(typeof(Startup))
                 .AddControllers()
                 .AddFluentValidation(cfg =>
                     cfg.RegisterValidatorsFromAssemblyContaining<Startup>())

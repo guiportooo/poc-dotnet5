@@ -2,6 +2,7 @@ namespace PocDotNet5.Api.V1.Controllers
 {
     using System.Threading.Tasks;
     using Api.Models.Responses;
+    using AutoMapper;
     using Domain.Entities;
     using Domain.Repositories;
     using Microsoft.AspNetCore.Http;
@@ -14,9 +15,14 @@ namespace PocDotNet5.Api.V1.Controllers
     [ApiVersion("1.0")]
     public class UsersController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public UsersController(IUserRepository userRepository) => _userRepository = userRepository;
+        public UsersController(IMapper mapper, IUserRepository userRepository)
+        {
+            _mapper = mapper;
+            _userRepository = userRepository;
+        }
 
         [HttpGet]
         [Route("{id:int}", Name = "Get")]
@@ -29,11 +35,8 @@ namespace PocDotNet5.Api.V1.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(new UserCreated(user.FirstName,
-                user.LastName,
-                user.Email,
-                user.DateOfBirth,
-                user.Active));
+            var userCreated = _mapper.Map<UserCreated>(user);
+            return Ok(userCreated);
         }
 
         [HttpPost]
@@ -41,15 +44,10 @@ namespace PocDotNet5.Api.V1.Controllers
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ValidationErrors))]
         public async Task<IActionResult> Post([FromBody] CreateUser createUser)
         {
-            var user = new User(createUser.FirstName, createUser.LastName, createUser.Email, createUser.DateOfBirth);
-
+            var user = _mapper.Map<User>(createUser);
             await _userRepository.AddAsync(user);
-
-            return CreatedAtRoute("Get", new {id = user.Id}, new UserCreated(user.FirstName,
-                user.LastName,
-                user.Email,
-                user.DateOfBirth,
-                user.Active));
+            var userCreated = _mapper.Map<UserCreated>(user);
+            return CreatedAtRoute("Get", new {id = user.Id}, userCreated);
         }
     }
 }
