@@ -11,7 +11,7 @@ namespace PocDotNet5.Api.Repositories
 
         public UserRepository(PocDotNet5Context context) => _context = context;
 
-        public async Task<User> FindAsync(int id) => await _context.Users.FindAsync(id);
+        public async Task<User?> FindAsync(int id) => await _context.Users.FindAsync(id);
 
         public async Task AddAsync(User user)
         {

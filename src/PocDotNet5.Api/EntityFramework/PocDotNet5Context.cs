@@ -5,7 +5,7 @@ namespace PocDotNet5.Api.EntityFramework
 
     public class PocDotNet5Context : DbContext
     {
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> Users => Set<User>();
 
         public PocDotNet5Context(DbContextOptions<PocDotNet5Context> options) : base(options)
         {

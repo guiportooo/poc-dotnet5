@@ -5,7 +5,7 @@ namespace PocDotNet5.Api.Domain.Repositories
 
     public interface IUserRepository
     {
-        Task<User> FindAsync(int id);
+        Task<User?> FindAsync(int id);
         Task AddAsync(User user);
     }
 }
