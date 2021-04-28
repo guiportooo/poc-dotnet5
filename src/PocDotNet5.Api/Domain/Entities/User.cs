@@ -1,7 +1,7 @@
-using System;
-
 namespace PocDotNet5.Api.Domain.Entities
 {
+    using System;
+
     public class User
     {
         public int Id { get; protected set; }

@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 namespace PocDotNet5.Api.Models.Responses
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     public record ValidationErrors
     {
         public IEnumerable<ValidationError> Errors { get; }

@@ -1,15 +1,17 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using PocDotNet5.Api.Domain.Entities;
-using PocDotNet5.Api.Domain.Repositories;
-using PocDotNet5.Api.Models.Requests;
-using PocDotNet5.Api.Models.Responses;
-
-namespace PocDotNet5.Api.Controllers
+namespace PocDotNet5.Api.V1.Controllers
 {
+    using System.Threading.Tasks;
+    using Api.Models.Responses;
+    using Domain.Entities;
+    using Domain.Repositories;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Models.Requests;
+    using Models.Responses;
+
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
@@ -27,7 +29,11 @@ namespace PocDotNet5.Api.Controllers
             if (user == null)
                 return NotFound();
 
-            return Ok(user);
+            return Ok(new UserCreated(user.FirstName,
+                user.LastName,
+                user.Email,
+                user.DateOfBirth,
+                user.Active));
         }
 
         [HttpPost]
@@ -38,7 +44,7 @@ namespace PocDotNet5.Api.Controllers
             var user = new User(createUser.FirstName, createUser.LastName, createUser.Email, createUser.DateOfBirth);
 
             await _userRepository.AddAsync(user);
-            
+
             return CreatedAtRoute("Get", new {id = user.Id}, new UserCreated(user.FirstName,
                 user.LastName,
                 user.Email,

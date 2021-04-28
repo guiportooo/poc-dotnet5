@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PocDotNet5.Api.Domain.Entities;
-
 namespace PocDotNet5.Api.EntityFramework.Mappings
 {
+    using Domain.Entities;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     public class UserMapping : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)

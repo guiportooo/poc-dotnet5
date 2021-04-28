@@ -1,9 +1,9 @@
-using System;
-using FluentValidation;
-using PocDotNet5.Api.Models.Requests;
-
-namespace PocDotNet5.Api.Validations
+namespace PocDotNet5.Api.V2.Validations
 {
+    using System;
+    using FluentValidation;
+    using Models.Requests;
+
     public class CreateUserValidator : AbstractValidator<CreateUser>
     {
         public CreateUserValidator()

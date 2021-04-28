@@ -1,8 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using PocDotNet5.Api.Domain.Entities;
-
 namespace PocDotNet5.Api.EntityFramework
 {
+    using Domain.Entities;
+    using Microsoft.EntityFrameworkCore;
+
     public class PocDotNet5Context : DbContext
     {
         public DbSet<User> Users { get; set; }

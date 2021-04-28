@@ -1,12 +1,12 @@
-using System;
-using FluentValidation;
-using FluentValidation.TestHelper;
-using NUnit.Framework;
-using PocDotNet5.Api.Validations;
-using PocDotNet5.UnitTests.Builders;
-
-namespace PocDotNet5.UnitTests.Api.Validations
+namespace PocDotNet5.UnitTests.Api.V1.Validations
 {
+    using System;
+    using Builders.V1;
+    using FluentValidation;
+    using FluentValidation.TestHelper;
+    using NUnit.Framework;
+    using PocDotNet5.Api.V1.Validations;
+
     public class CreateUserValidatorTests
     {
         private CreateUserValidator _validator;
