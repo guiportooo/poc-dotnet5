@@ -2,11 +2,15 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PocDotNet5.Api.Domain.Repositories;
+using PocDotNet5.Api.EntityFramework;
 using PocDotNet5.Api.Models.Responses;
+using PocDotNet5.Api.Repositories;
 
 namespace PocDotNet5.Api
 {
@@ -18,16 +22,20 @@ namespace PocDotNet5.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services
+                .AddDbContext<PocDotNet5Context>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("PocDotNet5")))
                 .AddControllers()
+                .AddFluentValidation(cfg =>
+                    cfg.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .ConfigureApiBehaviorOptions(opt =>
                     opt.InvalidModelStateResponseFactory = actionContext =>
                     {
                         var modelState = actionContext.ModelState;
                         return new UnprocessableEntityObjectResult(new ValidationErrors(modelState));
-                    })
-                .AddFluentValidation(cfg =>
-                    cfg.RegisterValidatorsFromAssemblyContaining<Startup>());
+                    });
 
             services.AddSwaggerGen(c =>
             {
