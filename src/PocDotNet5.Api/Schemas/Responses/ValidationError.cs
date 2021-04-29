@@ -1,4 +1,4 @@
-namespace PocDotNet5.Api.Models.Responses
+namespace PocDotNet5.Api.Schemas.Responses
 {
     using System.Collections.Generic;
     using System.Linq;

@@ -1,4 +1,4 @@
-namespace PocDotNet5.Api.V1.Models.Responses
+namespace PocDotNet5.Api.V1.Schemas.Responses
 {
     using System;
 

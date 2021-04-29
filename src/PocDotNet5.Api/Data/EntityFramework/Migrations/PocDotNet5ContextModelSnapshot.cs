@@ -8,6 +8,8 @@ using PocDotNet5.Api.EntityFramework;
 
 namespace PocDotNet5.Api.EntityFramework.Migrations
 {
+    using Data.EntityFramework;
+
     [DbContext(typeof(PocDotNet5Context))]
     partial class PocDotNet5ContextModelSnapshot : ModelSnapshot
     {

@@ -1,4 +1,4 @@
-namespace PocDotNet5.Api.V1.Models.Requests
+namespace PocDotNet5.Api.V1.Schemas.Requests
 {
     using System;
 

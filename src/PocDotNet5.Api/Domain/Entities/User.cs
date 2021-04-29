@@ -6,15 +6,6 @@ namespace PocDotNet5.Api.Domain.Entities
     {
         private const int minimumAge = 18;
 
-        public int Id { get; }
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string Email { get; }
-        public DateTime DateOfBirth { get; }
-        public DateTime UpdatedAt { get; }
-        public bool Active { get; }
-        public string FullName => $"{FirstName} {LastName}";
-
         public User(string firstName,
             string lastName,
             string email,
@@ -30,6 +21,15 @@ namespace PocDotNet5.Api.Domain.Entities
             UpdatedAt = DateTime.Now;
             Active = true;
         }
+
+        public int Id { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Email { get; }
+        public DateTime DateOfBirth { get; }
+        public DateTime UpdatedAt { get; }
+        public bool Active { get; }
+        public string FullName => $"{FirstName} {LastName}";
 
         private static bool IsYoungerThanMinimumAge(DateTime dateOfBirth) =>
             dateOfBirth.Date > DateTime.Today.AddYears(-minimumAge);

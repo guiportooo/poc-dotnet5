@@ -2,7 +2,7 @@ namespace PocDotNet5.Api.V2.Validations
 {
     using System;
     using FluentValidation;
-    using Models.Requests;
+    using Schemas.Requests;
 
     public class CreateUserValidator : AbstractValidator<CreateUser>
     {

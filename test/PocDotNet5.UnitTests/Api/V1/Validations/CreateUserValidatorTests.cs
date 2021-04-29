@@ -1,7 +1,7 @@
 namespace PocDotNet5.UnitTests.Api.V1.Validations
 {
     using System;
-    using Builders.V1;
+    using Builders;
     using FluentValidation;
     using FluentValidation.TestHelper;
     using NUnit.Framework;

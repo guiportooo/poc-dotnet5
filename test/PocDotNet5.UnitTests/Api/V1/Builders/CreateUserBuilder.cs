@@ -1,9 +1,9 @@
-namespace PocDotNet5.UnitTests.Builders.V1
+namespace PocDotNet5.UnitTests.Api.V1.Builders
 {
     using System;
     using System.Collections.Generic;
     using AutoBogus;
-    using PocDotNet5.Api.V1.Models.Requests;
+    using PocDotNet5.Api.V1.Schemas.Requests;
 
     public class CreateUserBuilder : AutoFaker<CreateUser>
     {

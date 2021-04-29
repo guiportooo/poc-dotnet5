@@ -1,4 +1,4 @@
-namespace PocDotNet5.Api.Repositories
+namespace PocDotNet5.Api.Data.Repositories
 {
     using System.Threading.Tasks;
     using Domain.Entities;

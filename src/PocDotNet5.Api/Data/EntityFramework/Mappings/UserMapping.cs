@@ -1,4 +1,4 @@
-namespace PocDotNet5.Api.EntityFramework.Mappings
+namespace PocDotNet5.Api.Data.EntityFramework.Mappings
 {
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
