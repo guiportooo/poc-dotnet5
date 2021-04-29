@@ -8,9 +8,9 @@ namespace PocDotNet5.Api.Domain.Commands
     using MediatR;
     using Repositories;
 
-    public record CreateUser : IRequest<int>
+    public record CreateUserCommand : IRequest<int>
     {
-        public CreateUser(string firstName, string lastName, string email, DateTime dateOfBirth)
+        public CreateUserCommand(string firstName, string lastName, string email, DateTime dateOfBirth)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -24,18 +24,18 @@ namespace PocDotNet5.Api.Domain.Commands
         public DateTime DateOfBirth { get; }
     }
 
-    public class CreateUserHandler : IRequestHandler<CreateUser, int>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public CreateUserHandler(IMapper mapper, IUserRepository userRepository)
+        public CreateUserCommandHandler(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
         }
 
-        public async Task<int> Handle(CreateUser command, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             var user = _mapper.Map<User>(command);
             await _userRepository.AddAsync(user);

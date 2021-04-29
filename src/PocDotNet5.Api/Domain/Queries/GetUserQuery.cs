@@ -7,36 +7,35 @@ namespace PocDotNet5.Api.Domain.Queries
     using MediatR;
     using Repositories;
 
-    public record UserData(int Id, 
-        string FirstName, 
+    public record UserQueryResult(string FirstName, 
         string LastName, 
         string FullName, 
         string Email,
         DateTime DateOfBirth, 
         bool Active);
 
-    public record GetUser : IRequest<UserData?>
+    public record GetUserQuery : IRequest<UserQueryResult?>
     {
-        public GetUser(int id) => Id = id;
+        public GetUserQuery(int id) => Id = id;
 
         public int Id { get; }
     }
 
-    public class GetUserHandler : IRequestHandler<GetUser, UserData?>
+    public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserQueryResult?>
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
 
-        public GetUserHandler(IMapper mapper, IUserRepository userRepository)
+        public GetUserQueryHandler(IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _userRepository = userRepository;
         }
 
-        public async Task<UserData?> Handle(GetUser query, CancellationToken cancellationToken)
+        public async Task<UserQueryResult?> Handle(GetUserQuery query, CancellationToken cancellationToken)
         {
             var user = await _userRepository.FindAsync(query.Id);
-            return _mapper.Map<UserData>(user);
+            return _mapper.Map<UserQueryResult>(user);
         }
     }
 }

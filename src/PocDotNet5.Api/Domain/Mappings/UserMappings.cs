@@ -9,8 +9,8 @@ namespace PocDotNet5.Api.Domain.Mappings
     {
         public UserMappings()
         {
-            CreateMap<CreateUser, User>();
-            CreateMap<User, UserData>();
+            CreateMap<CreateUserCommand, User>();
+            CreateMap<User, UserQueryResult>();
         } 
     }
 }

@@ -30,7 +30,7 @@ namespace PocDotNet5.Api.V1.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
-            var query = new GetUser(id);
+            var query = new GetUserQuery(id);
             var user = await _mediator.Send(query);
 
             if (user == null)
@@ -45,7 +45,7 @@ namespace PocDotNet5.Api.V1.Controllers
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ValidationErrorsResponse))]
         public async Task<IActionResult> Post([FromBody] CreateUserRequest createUserRequest)
         {
-            var command = _mapper.Map<Domain.Commands.CreateUser>(createUserRequest);
+            var command = _mapper.Map<Domain.Commands.CreateUserCommand>(createUserRequest);
             var id = await _mediator.Send(command);
             return CreatedAtRoute("Get", new {id}, null);
         }
