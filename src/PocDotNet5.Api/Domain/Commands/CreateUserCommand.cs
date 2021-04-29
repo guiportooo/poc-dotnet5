@@ -17,11 +17,11 @@ namespace PocDotNet5.Api.Domain.Commands
             Email = email;
             DateOfBirth = dateOfBirth;
         }
-        
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string Email { get; }
-        public DateTime DateOfBirth { get; }
+
+        public string FirstName { get;  protected set;}
+        public string LastName { get;  protected set;}
+        public string Email { get;  protected set;}
+        public DateTime DateOfBirth { get; protected set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>

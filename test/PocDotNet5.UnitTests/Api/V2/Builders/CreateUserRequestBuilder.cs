@@ -5,14 +5,14 @@ namespace PocDotNet5.UnitTests.Api.V2.Builders
     using AutoBogus;
     using PocDotNet5.Api.V2.Schemas.Requests;
 
-    public class CreateUserRequestBuilder : AutoFaker<CreateUserRequest>
+    public sealed class CreateUserRequestBuilder : AutoFaker<CreateUserRequest>
     {
         public CreateUserRequestBuilder()
         {
-            RuleFor(x => x.FirstName, x => x.Person.FirstName);
-            RuleFor(x => x.LastName, x => x.Person.LastName);
-            RuleFor(x => x.Email, x => x.Person.Email);
-            RuleFor(x => x.DateOfBirth, x => x.Person.DateOfBirth);
+            RuleFor(x => x.FirstName, f => f.Person.FirstName);
+            RuleFor(x => x.LastName, f => f.Person.LastName);
+            RuleFor(x => x.Email, f => f.Person.Email);
+            RuleFor(x => x.DateOfBirth, f => f.Person.DateOfBirth);
         }
 
         public CreateUserRequestBuilder WithFirstName(string firstName)
