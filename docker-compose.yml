@@ -6,7 +6,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - 'ASPNETCORE_URLS=http://+:80'
-      - ConnectionString=Server=sql-server;Database=PocDotNet5;User Id=sa;Password=local@db_123
+      - ConnectionString=Server=sql-server;Database=PocDotNet5;User Id=sa;Password=YourStrong!Passw0rd
     build:
         context: .
         dockerfile: src/PocDotNet5.Api/Dockerfile
@@ -15,15 +15,12 @@ services:
       - 5000:80
     depends_on:
       - sql-server
-    # volumes:
-    #   - '${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro'
-    #   - '${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro'
-   
+ 
   sql-server:
     container_name: sql-server
-    image: mcr.microsoft.com/mssql/server:2017-latest 
+    image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
-      - SA_PASSWORD=local@db_123
+      - SA_PASSWORD=YourStrong!Passw0rd
       - ACCEPT_EULA=Y
     ports:
       - '7433:1433'
