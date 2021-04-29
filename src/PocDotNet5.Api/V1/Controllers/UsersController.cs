@@ -1,14 +1,14 @@
 namespace PocDotNet5.Api.V1.Controllers
 {
     using System.Threading.Tasks;
-    using Api.Models.Responses;
+    using Api.Schemas.Responses;
     using AutoMapper;
-    using Domain.Entities;
-    using Domain.Repositories;
+    using Domain.Queries;
+    using MediatR;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Models.Requests;
-    using Models.Responses;
+    using Schemas.Requests;
+    using Schemas.Responses;
 
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -16,38 +16,38 @@ namespace PocDotNet5.Api.V1.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
+        private readonly IMediator _mediator;
 
-        public UsersController(IMapper mapper, IUserRepository userRepository)
+        public UsersController(IMapper mapper, IMediator mediator)
         {
             _mapper = mapper;
-            _userRepository = userRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
         [Route("{id:int}", Name = "Get")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserCreated))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserCreatedResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _userRepository.FindAsync(id);
+            var query = new GetUserQuery(id);
+            var user = await _mediator.Send(query);
 
             if (user == null)
                 return NotFound();
 
-            var userCreated = _mapper.Map<UserCreated>(user);
-            return Ok(userCreated);
+            var response = _mapper.Map<UserCreatedResponse>(user);
+            return Ok(response);
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserCreated))]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ValidationErrors))]
-        public async Task<IActionResult> Post([FromBody] CreateUser createUser)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ValidationErrorsResponse))]
+        public async Task<IActionResult> Post([FromBody] CreateUserRequest createUserRequest)
         {
-            var user = _mapper.Map<User>(createUser);
-            await _userRepository.AddAsync(user);
-            var userCreated = _mapper.Map<UserCreated>(user);
-            return CreatedAtRoute("Get", new {id = user.Id}, userCreated);
+            var command = _mapper.Map<Domain.Commands.CreateUserCommand>(createUserRequest);
+            var id = await _mediator.Send(command);
+            return CreatedAtRoute("Get", new {id}, null);
         }
     }
 }

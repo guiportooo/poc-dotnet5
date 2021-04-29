@@ -1,8 +1,10 @@
 namespace PocDotNet5.Api
 {
+    using Data.EntityFramework;
+    using Data.Repositories;
     using Domain.Repositories;
-    using EntityFramework;
     using FluentValidation.AspNetCore;
+    using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -13,8 +15,7 @@ namespace PocDotNet5.Api
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Options;
-    using Models.Responses;
-    using Repositories;
+    using Schemas.Responses;
     using Swashbuckle.AspNetCore.SwaggerGen;
 
     public class Startup
@@ -31,6 +32,7 @@ namespace PocDotNet5.Api
                 .AddDbContext<PocDotNet5Context>(opt =>
                     opt.UseSqlServer(Configuration.GetConnectionString("PocDotNet5")))
                 .AddAutoMapper(typeof(Startup))
+                .AddMediatR(typeof(Startup))
                 .AddControllers()
                 .AddFluentValidation(cfg =>
                     cfg.RegisterValidatorsFromAssemblyContaining<Startup>())
@@ -38,7 +40,7 @@ namespace PocDotNet5.Api
                     opt.InvalidModelStateResponseFactory = actionContext =>
                     {
                         var modelState = actionContext.ModelState;
-                        return new UnprocessableEntityObjectResult(new ValidationErrors(modelState));
+                        return new UnprocessableEntityObjectResult(new ValidationErrorsResponse(modelState));
                     });
 
             services

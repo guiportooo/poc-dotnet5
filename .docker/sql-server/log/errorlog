@@ -71,3 +71,5 @@
 2021-04-29 20:32:05.91 spid41s     The Database Mirroring endpoint is in disabled or stopped state.
 2021-04-29 20:32:05.94 spid41s     Service Broker manager has started.
 2021-04-29 20:32:05.97 spid10s     Recovery is complete. This is an informational message only. No user action is required.
+2021-04-29 20:38:07.83 spid60      Attempting to load library 'xplog70.dll' into memory. This is an informational message only. No user action is required.
+2021-04-29 20:38:07.99 spid60      Using 'xplog70.dll' version '2019.150.4123' to execute extended stored procedure 'xp_msver'. This is an informational message only; no user action is required.
