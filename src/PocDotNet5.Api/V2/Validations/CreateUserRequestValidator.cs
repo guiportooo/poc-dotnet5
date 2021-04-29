@@ -1,12 +1,12 @@
-namespace PocDotNet5.Api.V1.Validations
+namespace PocDotNet5.Api.V2.Validations
 {
     using System;
     using FluentValidation;
     using Schemas.Requests;
 
-    public class CreateUserValidator : AbstractValidator<CreateUser>
+    public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
     {
-        public CreateUserValidator()
+        public CreateUserRequestValidator()
         {
             RuleFor(x => x.FirstName)
                 .NotEmpty()

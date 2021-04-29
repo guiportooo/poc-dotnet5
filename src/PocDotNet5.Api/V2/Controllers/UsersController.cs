@@ -26,7 +26,7 @@ namespace PocDotNet5.Api.V2.Controllers
 
         [HttpGet]
         [Route("{id:int}", Name = "Get")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserCreated))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserCreatedResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(int id)
         {
@@ -36,16 +36,16 @@ namespace PocDotNet5.Api.V2.Controllers
             if (user == null)
                 return NotFound();
 
-            var userCreated = _mapper.Map<UserCreated>(user);
-            return Ok(userCreated);
+            var response = _mapper.Map<UserCreatedResponse>(user);
+            return Ok(response);
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(UserCreated))]
-        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ValidationErrors))]
-        public async Task<IActionResult> Post([FromBody] CreateUser createUser)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(ValidationErrorsResponse))]
+        public async Task<IActionResult> Post([FromBody] CreateUserRequest createUserRequest)
         {
-            var command = _mapper.Map<Domain.Commands.CreateUser>(createUser);
+            var command = _mapper.Map<Domain.Commands.CreateUser>(createUserRequest);
             var id = await _mediator.Send(command);
             return CreatedAtRoute("Get", new {id});
         }

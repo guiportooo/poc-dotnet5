@@ -1,6 +1,7 @@
 namespace PocDotNet5.Api.V1.Mappings
 {
     using AutoMapper;
+    using Domain.Commands;
     using Domain.Queries;
     using Schemas.Requests;
     using Schemas.Responses;
@@ -9,8 +10,8 @@ namespace PocDotNet5.Api.V1.Mappings
     {
         public UserMappings()
         {
-            CreateMap<CreateUser, Domain.Commands.CreateUser>();
-            CreateMap<UserData, UserCreated>();
+            CreateMap<CreateUserRequest, CreateUser>();
+            CreateMap<UserData, UserCreatedResponse>();
         }
     }
 }

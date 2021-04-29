@@ -40,7 +40,7 @@ namespace PocDotNet5.Api
                     opt.InvalidModelStateResponseFactory = actionContext =>
                     {
                         var modelState = actionContext.ModelState;
-                        return new UnprocessableEntityObjectResult(new ValidationErrors(modelState));
+                        return new UnprocessableEntityObjectResult(new ValidationErrorsResponse(modelState));
                     });
 
             services

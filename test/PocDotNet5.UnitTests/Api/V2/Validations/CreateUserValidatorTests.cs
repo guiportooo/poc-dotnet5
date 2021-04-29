@@ -9,10 +9,10 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
 
     public class CreateUserValidatorTests
     {
-        private CreateUserValidator _validator;
+        private CreateUserRequestValidator _requestValidator;
 
         [SetUp]
-        public void Setup() => _validator = new CreateUserValidator();
+        public void Setup() => _requestValidator = new CreateUserRequestValidator();
 
         [TestCase("")]
         [TestCase(null)]
@@ -20,12 +20,12 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
         {
             const string errorMessage = "Please inform the user's first name.";
 
-            var user = new CreateUserBuilder()
+            var request = new CreateUserRequestBuilder()
                 .WithFirstName(emptyFirstName)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldHaveValidationErrorFor(x => x.FirstName)
                 .WithErrorMessage(errorMessage)
                 .WithSeverity(Severity.Error);
@@ -37,12 +37,12 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
         {
             const string errorMessage = "The user's first name cannot have more than 20 characters";
 
-            var user = new CreateUserBuilder()
+            var request= new CreateUserRequestBuilder()
                 .WithFirstName(longFirstName)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldHaveValidationErrorFor(x => x.FirstName)
                 .WithErrorMessage(errorMessage)
                 .WithSeverity(Severity.Error);
@@ -54,12 +54,12 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
         {
             const string errorMessage = "Please inform the user's last name.";
 
-            var user = new CreateUserBuilder()
+            var request= new CreateUserRequestBuilder()
                 .WithLastName(emptyLastName)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldHaveValidationErrorFor(x => x.LastName)
                 .WithErrorMessage(errorMessage)
                 .WithSeverity(Severity.Error);
@@ -71,12 +71,12 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
         {
             const string errorMessage = "The user's last name cannot have more than 20 characters";
 
-            var user = new CreateUserBuilder()
+            var request= new CreateUserRequestBuilder()
                 .WithLastName(longLastName)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldHaveValidationErrorFor(x => x.LastName)
                 .WithErrorMessage(errorMessage)
                 .WithSeverity(Severity.Error);
@@ -90,12 +90,12 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
         {
             const string errorMessage = "Please inform a valid email for the user.";
 
-            var user = new CreateUserBuilder()
+            var request= new CreateUserRequestBuilder()
                 .WithEmail(invalidEmail)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldHaveValidationErrorFor(x => x.Email)
                 .WithErrorMessage(errorMessage)
                 .WithSeverity(Severity.Error);
@@ -107,12 +107,12 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
             var dateOfBirth = DateTime.Today.AddYears(-17);
             const string errorMessage = "The user must be 18 or older.";
 
-            var user = new CreateUserBuilder()
+            var request= new CreateUserRequestBuilder()
                 .WithDateOfBirth(dateOfBirth)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldHaveValidationErrorFor(x => x.DateOfBirth)
                 .WithErrorMessage(errorMessage)
                 .WithSeverity(Severity.Error);
@@ -126,15 +126,15 @@ namespace PocDotNet5.UnitTests.Api.V2.Validations
             const string email = "valid@email.com";
             var dateOfBirth = DateTime.Today.AddYears(-18);
 
-            var user = new CreateUserBuilder()
+            var request= new CreateUserRequestBuilder()
                 .WithFirstName(firstName)
                 .WithLastName(lastName)
                 .WithEmail(email)
                 .WithDateOfBirth(dateOfBirth)
                 .One();
 
-            _validator
-                .TestValidate(user)
+            _requestValidator
+                .TestValidate(request)
                 .ShouldNotHaveAnyValidationErrors();
         }
     }
