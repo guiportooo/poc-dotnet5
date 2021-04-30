@@ -30,7 +30,7 @@ namespace PocDotNet5.Api
 
             services
                 .AddDbContext<PocDotNet5Context>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("PocDotNet5")))
+                    opt.UseSqlServer(Configuration.GetConnectionString("ConnectionStrings")))
                 .AddAutoMapper(typeof(Startup))
                 .AddMediatR(typeof(Startup))
                 .AddControllers()
