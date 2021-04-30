@@ -34,7 +34,7 @@ namespace PocDotNet5.IntegrationTests
                 .GetService<PocDotNet5Context>();
 
             var configuration = (ConfigurationRoot) TestEnvironment.Factory.Services.GetService(typeof(IConfiguration));
-            var connectionString = configuration.GetConnectionString("PocDotNet5");
+            var connectionString = configuration["ConnectionString"];
             await _databaseReset.Reset(connectionString);
         }
 
