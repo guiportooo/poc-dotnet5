@@ -23,7 +23,7 @@ services:
       - SA_PASSWORD=YourStrong!Passw0rd
       - ACCEPT_EULA=Y
     ports:
-      - '7433:1433'
+      - '1433:1433'
     volumes:
       - './.docker/sql-server:/var/opt/mssql'
 volumes:
