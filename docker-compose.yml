@@ -1,31 +1,23 @@
 version: '3.4'
+
 services:
   poc-dotnet5:
     container_name: poc-dotnet5
-    command: ['dotnet', 'dev-certs', 'https']
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - 'ASPNETCORE_URLS=http://+:80'
-      - ConnectionString=Server=sql-server;Database=PocDotNet5;User Id=sa;Password=local@db_123
+    image: ferreirafernandar/poc-dotnet5:latest
+    ports:
+        - 5001:443
+        - 5000:80
     build:
       context: .
       dockerfile: src/PocDotNet5.Api/Dockerfile
-    ports:
-      - 5001:443
-      - 5000:80
     depends_on:
       - sql-server
 
   sql-server:
     container_name: sql-server
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    environment:
-      - SA_PASSWORD=YourStrong!Passw0rd
-      - ACCEPT_EULA=Y
+    image: mcr.microsoft.com/mssql/server:2017-latest 
     ports:
-      - '1433:1433'
-    volumes:
-      - './.docker/sql-server:/var/opt/mssql'
-volumes:
-  sql-server:
-    external: false
+        - '1433:1433'
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Mrv@1231234 
